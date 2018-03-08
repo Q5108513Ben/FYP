@@ -19,28 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="stateeditorability.cpp" />
-    <ClCompile Include="stateeditorcharacter.cpp" />
-    <ClCompile Include="stateeditorenemy.cpp" />
-    <ClCompile Include="statemachine.cpp" />
-    <ClCompile Include="stateplay.cpp" />
-    <ClCompile Include="statesetting.cpp" />
-    <ClCompile Include="statetitlescreen.cpp" />
-    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="external\TinyXML2\tinyxml2.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\StateMachine\States\abilityEditor.cpp" />
+    <ClCompile Include="src\StateMachine\States\characterEditor.cpp" />
+    <ClCompile Include="src\StateMachine\States\enemyEditor.cpp" />
+    <ClCompile Include="src\StateMachine\stateMachine.cpp" />
+    <ClCompile Include="src\StateMachine\States\playState.cpp" />
+    <ClCompile Include="src\StateMachine\States\settingsMenu.cpp" />
+    <ClCompile Include="src\StateMachine\States\introScreen.cpp" />
+    <ClCompile Include="src\Managers\textureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includestates.hpp" />
-    <ClInclude Include="SpriteCreator.hpp" />
-    <ClInclude Include="stateeditorability.hpp" />
-    <ClInclude Include="stateeditorcharacter.hpp" />
-    <ClInclude Include="stateeditorenemy.hpp" />
-    <ClInclude Include="statemachine.hpp" />
-    <ClInclude Include="stateplay.hpp" />
-    <ClInclude Include="statesetting.hpp" />
-    <ClInclude Include="statetitlescreen.hpp" />
-    <ClInclude Include="textureManager.hpp" />
-    <ClInclude Include="virtualstate.hpp" />
+    <ClInclude Include="external\TinyXML2\tinyxml2.h" />
+    <ClInclude Include="include\includeStates.hpp" />
+    <ClInclude Include="include\Additional\spriteCreator.hpp" />
+    <ClInclude Include="include\StateMachine\States\abilityEditor.hpp" />
+    <ClInclude Include="include\StateMachine\States\characterEditor.hpp" />
+    <ClInclude Include="include\StateMachine\States\enemyEditor.hpp" />
+    <ClInclude Include="include\StateMachine\stateMachine.hpp" />
+    <ClInclude Include="include\StateMachine\States\playState.hpp" />
+    <ClInclude Include="include\StateMachine\States\settingsMenu.hpp" />
+    <ClInclude Include="include\StateMachine\States\introScreen.hpp" />
+    <ClInclude Include="include\Managers\textureManager.hpp" />
+    <ClInclude Include="include\StateMachine\virtualState.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{42bda97f-a8f5-4d8e-92ff-63b186190246}</ProjectGuid>
@@ -110,7 +112,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External Libraries\SFML-2.4.2\include;$(SolutionDir)\External Libraries\TGUI-0.7\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External Libraries\SFML-2.4.2\include;$(SolutionDir)\External Libraries\TGUI-0.7\include;$(ProjectDir)\external\TinyXML2;$(ProjectDir)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\External Libraries\SFML-2.4.2\lib;$(SolutionDir)\External Libraries\TGUI-0.7\lib</AdditionalLibraryDirectories>
@@ -137,7 +139,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External Libraries\SFML-2.4.2\include;$(SolutionDir)\External Libraries\TGUI-0.7\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External Libraries\SFML-2.4.2\include;$(SolutionDir)\External Libraries\TGUI-0.7\include;$(ProjectDir)\external\TinyXML2;$(ProjectDir)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

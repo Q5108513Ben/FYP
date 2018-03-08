@@ -1,5 +1,5 @@
-#include "statemachine.hpp"
-#include "statetitlescreen.hpp"
+#include "StateMachine/stateMachine.hpp"
+#include "StateMachine/States/introScreen.hpp"
 
 void main() {
 	StateMachine statemachine;

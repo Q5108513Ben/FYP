@@ -1,7 +1,7 @@
 #pragma once
 
-#include "textureManager.hpp"
-#include "SFML\Graphics.hpp"
+#include "Managers/textureManager.hpp"
+#include "SFML/Graphics.hpp"
 
 namespace SpriteCreator {
 	sf::Sprite Create(std::string fileName) {

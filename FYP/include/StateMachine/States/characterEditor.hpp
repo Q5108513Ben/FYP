@@ -1,8 +1,8 @@
 #pragma once
 
-#include "virtualstate.hpp"
+#include "StateMachine/virtualState.hpp"
 
-class TitleScreenState : public State {
+class CharacterEditState : public State {
 	public:
 		void Initialise(sf::RenderWindow* window);
 		void CleanUp();
@@ -14,14 +14,12 @@ class TitleScreenState : public State {
 		void Update(StateMachine* machine);
 		void Render(StateMachine* machine);
 
-		static TitleScreenState* Instance() { return &titlestate; }
+		static CharacterEditState* Instance() { return &characterstate; }
 
 	protected:
-		TitleScreenState() { }
+		CharacterEditState() { }
 
 	private:
-		static TitleScreenState titlestate;
+		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };
-
-		std::vector<sf::Sprite> sprites;
 };

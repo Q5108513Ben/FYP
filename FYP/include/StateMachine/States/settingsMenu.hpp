@@ -1,8 +1,8 @@
 #pragma once
 
-#include "virtualstate.hpp"
+#include "StateMachine/virtualState.hpp"
 
-class AbilityEditState : public State {
+class SettingState : public State {
 public:
 	void Initialise(sf::RenderWindow* window);
 	void CleanUp();
@@ -14,12 +14,12 @@ public:
 	void Update(StateMachine* machine);
 	void Render(StateMachine* machine);
 
-	static AbilityEditState* Instance() { return &abilitystate; }
+	static SettingState* Instance() { return &settingstate; }
 
 protected:
-	AbilityEditState() { }
+	SettingState() { }
 
 private:
-	static AbilityEditState abilitystate;
+	static SettingState settingstate;
 	sf::RenderWindow* windowRef{ nullptr };
 };

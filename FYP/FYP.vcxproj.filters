@@ -15,66 +15,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="external\TinyXML2\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="statemachine.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="statetitlescreen.cpp">
+    <ClCompile Include="src\StateMachine\stateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateeditorcharacter.cpp">
+    <ClCompile Include="src\StateMachine\States\abilityEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateeditorenemy.cpp">
+    <ClCompile Include="src\StateMachine\States\characterEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateeditorability.cpp">
+    <ClCompile Include="src\StateMachine\States\enemyEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateplay.cpp">
+    <ClCompile Include="src\StateMachine\States\playState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="statesetting.cpp">
+    <ClCompile Include="src\StateMachine\States\settingsMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="textureManager.cpp">
+    <ClCompile Include="src\StateMachine\States\introScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Managers\textureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="virtualstate.hpp">
+    <ClInclude Include="external\TinyXML2\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="statemachine.hpp">
+    <ClInclude Include="include\StateMachine\stateMachine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="statetitlescreen.hpp">
+    <ClInclude Include="include\StateMachine\virtualState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stateeditorcharacter.hpp">
+    <ClInclude Include="include\StateMachine\States\abilityEditor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stateeditorenemy.hpp">
+    <ClInclude Include="include\StateMachine\States\characterEditor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stateeditorability.hpp">
+    <ClInclude Include="include\StateMachine\States\enemyEditor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stateplay.hpp">
+    <ClInclude Include="include\StateMachine\States\playState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="statesetting.hpp">
+    <ClInclude Include="include\StateMachine\States\settingsMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includestates.hpp">
+    <ClInclude Include="include\StateMachine\States\introScreen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="textureManager.hpp">
+    <ClInclude Include="include\Managers\textureManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteCreator.hpp">
+    <ClInclude Include="include\Additional\spriteCreator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\includeStates.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

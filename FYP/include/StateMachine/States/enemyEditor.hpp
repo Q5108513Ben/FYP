@@ -1,6 +1,6 @@
 #pragma once
 
-#include "virtualstate.hpp"
+#include "StateMachine/virtualState.hpp"
 
 class EnemyEditState : public State {
 	public:

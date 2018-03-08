@@ -1,4 +1,4 @@
-#include "textureManager.hpp"
+#include "Managers/textureManager.hpp"
 
 TextureManager TextureManager::textureManager;
 

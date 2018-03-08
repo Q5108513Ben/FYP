@@ -1,8 +1,8 @@
 #pragma once
 
-#include "virtualstate.hpp"
+#include "StateMachine/virtualState.hpp"
 
-class SettingState : public State {
+class PlayState : public State {
 public:
 	void Initialise(sf::RenderWindow* window);
 	void CleanUp();
@@ -14,12 +14,12 @@ public:
 	void Update(StateMachine* machine);
 	void Render(StateMachine* machine);
 
-	static SettingState* Instance() { return &settingstate; }
+	static PlayState* Instance() { return &playstate; }
 
 protected:
-	SettingState() { }
+	PlayState() { }
 
 private:
-	static SettingState settingstate;
+	static PlayState playstate;
 	sf::RenderWindow* windowRef{ nullptr };
 };

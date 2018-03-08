@@ -1,6 +1,6 @@
-#include "statemachine.hpp"
-#include "virtualstate.hpp"
-#include "SpriteCreator.hpp"
+#include "StateMachine/stateMachine.hpp"
+#include "StateMachine/virtualState.hpp"
+#include "Additional/spriteCreator.hpp"
 
 #include <iostream>
 
