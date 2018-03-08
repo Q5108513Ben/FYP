@@ -18,7 +18,7 @@ void PlayState::Resume() {
 
 }
 
-void PlayState::HandleEvents(StateMachine* machine) {
+void PlayState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

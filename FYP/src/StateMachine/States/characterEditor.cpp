@@ -18,7 +18,7 @@ void CharacterEditState::Resume() {
 
 }
 
-void CharacterEditState::HandleEvents(StateMachine* machine) {
+void CharacterEditState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

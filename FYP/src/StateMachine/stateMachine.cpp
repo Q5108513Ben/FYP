@@ -1,6 +1,6 @@
 #include "StateMachine/stateMachine.hpp"
 #include "StateMachine/virtualState.hpp"
-#include "Additional/spriteCreator.hpp"
+#include "Managers/UIManager.hpp"
 
 #include <iostream>
 
@@ -14,13 +14,7 @@ StateMachine::StateMachine() : window(sf::VideoMode(1020, 675), "Final Year Proj
 void StateMachine::Initialise() {
 	isRunning = true;
 
-	sprites.push_back(SpriteCreator::Create("Background.png"));
-
-	auto button = tgui::Picture::create();
-	button->setTexture("Images/ExitHover.png", true);
-	button->scale(3, 3);
-	gui.add(button);
-	button->connect("clicked", [&]() {window.close(); });
+	UIManager::Instance()->LoadBaseUI(windowPtr, this, guiPtr);
 }
 
 void StateMachine::CleanUp() {
@@ -85,26 +79,9 @@ void StateMachine::PopState() {
 void StateMachine::HandleEvents() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
-		switch (event.type) {
-			std::cout << event.type << std::endl;
-			case sf::Event::MouseButtonPressed:
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					if (sf::Mouse::getPosition().y < window.getPosition().y + 40) {
-						grabbedOffset = window.getPosition() - sf::Mouse::getPosition();
-						grabbedWindow = true;
-					}
-				}
-				break;
-
-			case sf::Event::MouseButtonReleased:
-				grabbedWindow = false;
-				break;
-		}
-
+		currentState->HandleEvent(this, event);
 		gui.handleEvent(event);
 	}
-	
-	currentState->HandleEvents(this);
 }
 
 void StateMachine::Update() {
@@ -114,16 +91,8 @@ void StateMachine::Update() {
 void StateMachine::Render() {
 	window.clear();
 
-	if (grabbedWindow) {
-		window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
-	}
-
-	for (auto sprite : sprites) {
-		sprite.scale(3, 3);
-		window.draw(sprite);
-	}
-
 	currentState->Render(this);
+	UIManager::Instance()->Render();
 	gui.draw();
 	window.display();
 }

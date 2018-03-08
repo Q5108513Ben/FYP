@@ -29,6 +29,7 @@
     <ClCompile Include="src\StateMachine\States\settingsMenu.cpp" />
     <ClCompile Include="src\StateMachine\States\introScreen.cpp" />
     <ClCompile Include="src\Managers\textureManager.cpp" />
+    <ClCompile Include="src\Managers\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\TinyXML2\tinyxml2.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="include\StateMachine\States\introScreen.hpp" />
     <ClInclude Include="include\Managers\textureManager.hpp" />
     <ClInclude Include="include\StateMachine\virtualState.hpp" />
+    <ClInclude Include="include\Managers\UIManager.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{42bda97f-a8f5-4d8e-92ff-63b186190246}</ProjectGuid>

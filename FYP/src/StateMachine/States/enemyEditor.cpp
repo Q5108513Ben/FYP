@@ -18,7 +18,7 @@ void EnemyEditState::Resume() {
 
 }
 
-void EnemyEditState::HandleEvents(StateMachine* machine) {
+void EnemyEditState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

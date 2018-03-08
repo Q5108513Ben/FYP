@@ -18,7 +18,7 @@ void AbilityEditState::Resume() {
 
 }
 
-void AbilityEditState::HandleEvents(StateMachine* machine) {
+void AbilityEditState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

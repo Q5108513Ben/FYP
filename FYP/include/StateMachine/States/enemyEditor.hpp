@@ -10,7 +10,7 @@ class EnemyEditState : public State {
 		void Pause();
 		void Resume();
 
-		void HandleEvents(StateMachine* machine);
+		void HandleEvent(StateMachine* machine, sf::Event event);
 		void Update(StateMachine* machine);
 		void Render(StateMachine* machine);
 

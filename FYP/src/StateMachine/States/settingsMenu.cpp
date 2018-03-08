@@ -18,7 +18,7 @@ void SettingState::Resume() {
 
 }
 
-void SettingState::HandleEvents(StateMachine* machine) {
+void SettingState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

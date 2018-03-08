@@ -18,7 +18,7 @@ void TitleScreenState::Resume() {
 
 }
 
-void TitleScreenState::HandleEvents(StateMachine* machine) {
+void TitleScreenState::HandleEvent(StateMachine* machine, sf::Event event) {
 
 }
 

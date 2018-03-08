@@ -23,8 +23,6 @@ class StateMachine {
 		void Quit();
 
 	private:
-		std::vector<sf::Sprite> sprites;
-
 		std::vector<State*> states;
 		State* currentState{ nullptr };
 		State* previousState{ nullptr };
@@ -36,7 +34,4 @@ class StateMachine {
 		bool isRunning;
 
 		bool CheckStates(State* state);
-
-		sf::Vector2i grabbedOffset;
-		bool grabbedWindow{ false };
 };
