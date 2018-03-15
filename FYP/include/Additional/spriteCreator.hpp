@@ -25,6 +25,7 @@ namespace ButtonCreator {
 		picture->setTexture(TextureManager::Instance()->textures[fileName]);
 		picture->scale(3, 3);
 		picture->setPosition(pos.x, pos.y);
+		picture->setOpacity(0);
 
 		return picture;
 	}

@@ -17,8 +17,13 @@ class UIManager {
 
 	private:
 		void WindowDragOn();
+
 		void ShowButton(std::string buttonName);
 		void HideButton(std::string buttonName);
+
+		void ActivateTab(unsigned int tabID);
+		void HideTab(unsigned int tabID);
+
 		void QuitProgram(StateMachine* machine);
 
 		std::vector<sf::Sprite> sprites;
@@ -27,6 +32,10 @@ class UIManager {
 
 		sf::Vector2i grabbedOffset;
 		bool grabbedWindow{ false };
+
+		bool playerTabActive{ false };
+		bool enemyTabActive{ false };
+		bool abilityTabActive{ false };
 
 		static UIManager ui;
 };
