@@ -2,7 +2,7 @@
 
 AbilityEditState AbilityEditState::abilitystate;
 
-void AbilityEditState::Initialise(sf::RenderWindow* window) {
+void AbilityEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	windowRef = window;
 }
 
@@ -27,6 +27,5 @@ void AbilityEditState::Update(StateMachine* machine) {
 }
 
 void AbilityEditState::Render(StateMachine* machine) {
-	windowRef->clear();
-	windowRef->display();
+	
 }

@@ -4,7 +4,7 @@
 
 class TitleScreenState : public State {
 	public:
-		void Initialise(sf::RenderWindow* window);
+		void Initialise(sf::RenderWindow* window, tgui::Gui* gui);
 		void CleanUp();
 
 		void Pause();
@@ -22,6 +22,7 @@ class TitleScreenState : public State {
 	private:
 		static TitleScreenState titlestate;
 		sf::RenderWindow* windowRef{ nullptr };
+		tgui::Gui* guiRef{ nullptr };
 
 		std::vector<sf::Sprite> sprites;
 };

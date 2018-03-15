@@ -2,7 +2,7 @@
 
 EnemyEditState EnemyEditState::enemystate;
 
-void EnemyEditState::Initialise(sf::RenderWindow* window) {
+void EnemyEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	windowRef = window;
 }
 
@@ -27,6 +27,5 @@ void EnemyEditState::Update(StateMachine* machine) {
 }
 
 void EnemyEditState::Render(StateMachine* machine) {
-	windowRef->clear();
-	windowRef->display();
+	
 }

@@ -2,7 +2,7 @@
 
 SettingState SettingState::settingstate;
 
-void SettingState::Initialise(sf::RenderWindow* window) {
+void SettingState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	windowRef = window;
 }
 
@@ -27,6 +27,5 @@ void SettingState::Update(StateMachine* machine) {
 }
 
 void SettingState::Render(StateMachine* machine) {
-	windowRef->clear();
-	windowRef->display();
+
 }

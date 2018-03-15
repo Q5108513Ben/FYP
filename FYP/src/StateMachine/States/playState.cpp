@@ -2,7 +2,7 @@
 
 PlayState PlayState::playstate;
 
-void PlayState::Initialise(sf::RenderWindow* window) {
+void PlayState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	windowRef = window;
 }
 
@@ -27,6 +27,5 @@ void PlayState::Update(StateMachine* machine) {
 }
 
 void PlayState::Render(StateMachine* machine) {
-	windowRef->clear();
-	windowRef->display();
+	
 }

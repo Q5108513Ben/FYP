@@ -4,7 +4,7 @@
 
 class EnemyEditState : public State {
 	public:
-		void Initialise(sf::RenderWindow* window);
+		void Initialise(sf::RenderWindow* window, tgui::Gui* gui);
 		void CleanUp();
 
 		void Pause();

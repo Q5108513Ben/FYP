@@ -9,17 +9,26 @@ struct Position {
 };
 
 namespace SpriteCreator {
-	sf::Sprite Create(std::string fileName) {
+	static sf::Sprite Create(std::string fileName) {
 		TextureManager::Instance()->LoadTexture(fileName);
 		sf::Sprite sprite;
 		sprite.setTexture(TextureManager::Instance()->textures[fileName]);
 
 		return sprite;
 	}
+
+	static sf::Sprite Create(std::string fileName, Position pos) {
+		TextureManager::Instance()->LoadTexture(fileName);
+		sf::Sprite sprite;
+		sprite.setTexture(TextureManager::Instance()->textures[fileName]);
+		sprite.setPosition((float)pos.x, (float)pos.y);
+
+		return sprite;
+	}
 }
 
 namespace ButtonCreator {
-	tgui::Picture::Ptr Create(std::string fileName, Position pos) {
+	static tgui::Picture::Ptr Create(std::string fileName, Position pos) {
 		TextureManager::Instance()->LoadTexture(fileName);
 		auto picture = tgui::Picture::create();
 		picture->setTexture(TextureManager::Instance()->textures[fileName]);

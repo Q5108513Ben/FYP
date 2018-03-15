@@ -4,7 +4,7 @@
 
 class State {
 	public:
-		virtual void Initialise(sf::RenderWindow* window) = 0;
+		virtual void Initialise(sf::RenderWindow* window, tgui::Gui* gui) = 0;
 		virtual void CleanUp() = 0;
 		virtual void Pause() = 0;
 		virtual void Resume() = 0;

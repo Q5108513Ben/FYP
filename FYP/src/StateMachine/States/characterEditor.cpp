@@ -2,7 +2,7 @@
 
 CharacterEditState CharacterEditState::characterstate;
 
-void CharacterEditState::Initialise(sf::RenderWindow* window) {
+void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	windowRef = window;
 }
 
@@ -27,6 +27,5 @@ void CharacterEditState::Update(StateMachine* machine) {
 }
 
 void CharacterEditState::Render(StateMachine* machine) {
-	windowRef->clear();
-	windowRef->display();
+	
 }

@@ -30,6 +30,7 @@ void StateMachine::CleanUp() {
 void StateMachine::PushState(State* state) {
 	
 	if (CheckStates(state)) {
+		SwitchState(state);
 		return;
 	}
 	
@@ -39,7 +40,7 @@ void StateMachine::PushState(State* state) {
 	}
 
 	states.push_back(state);
-	states.back()->Initialise(windowPtr);
+	states.back()->Initialise(windowPtr, guiPtr);
 	currentState = state;
 }
 
@@ -91,8 +92,8 @@ void StateMachine::Update() {
 void StateMachine::Render() {
 	window.clear();
 
-	currentState->Render(this);
 	UIManager::Instance()->Render();
+	currentState->Render(this);
 	gui.draw();
 	window.display();
 }

@@ -20,8 +20,10 @@ class UIManager {
 
 		void ShowButton(std::string buttonName);
 		void HideButton(std::string buttonName);
+		void HideButtonToggle(unsigned int buttonID);
+		void ToggleButton(unsigned int buttonID);
 
-		void ActivateTab(unsigned int tabID);
+		void ActivateTab(unsigned int tabID, StateMachine* machine);
 		void HideTab(unsigned int tabID);
 
 		void QuitProgram(StateMachine* machine);
@@ -33,6 +35,9 @@ class UIManager {
 		sf::Vector2i grabbedOffset;
 		bool grabbedWindow{ false };
 
+		bool playButtonActive{ false };
+		bool pauseButtonActive{ true };
+		bool helpButtonActive{ false };
 		bool playerTabActive{ false };
 		bool enemyTabActive{ false };
 		bool abilityTabActive{ false };
