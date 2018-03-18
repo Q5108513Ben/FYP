@@ -25,7 +25,7 @@ void TitleScreenState::CleanUp() {
 }
 
 void TitleScreenState::Pause() {
-
+	guiRef->get("HelpButton")->hide();
 }
 
 void TitleScreenState::Resume() {

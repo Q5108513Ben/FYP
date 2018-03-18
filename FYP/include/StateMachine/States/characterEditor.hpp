@@ -20,6 +20,9 @@ class CharacterEditState : public State {
 		CharacterEditState() { }
 
 	private:
+		std::vector<sf::Sprite> sprites;
+		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };
+		tgui::Gui* guiRef{ nullptr };
 };
