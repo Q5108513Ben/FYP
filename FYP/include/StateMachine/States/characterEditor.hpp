@@ -21,6 +21,9 @@ class CharacterEditState : public State {
 
 	private:
 		std::vector<sf::Sprite> sprites;
+
+		void ShowSearch();
+		void UnfocusSearch();
 		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };

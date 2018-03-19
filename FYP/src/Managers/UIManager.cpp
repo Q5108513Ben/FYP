@@ -7,7 +7,7 @@ UIManager UIManager::ui;
 void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui::Gui* gui) {
 	windowPtr = window;
 	guiPtr = gui;
-	
+
 	sprites.push_back(SpriteCreator::Create("Background.png"));
 	
 	auto toolbar = tgui::Picture::create();
