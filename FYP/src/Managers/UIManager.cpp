@@ -4,6 +4,46 @@
 
 UIManager UIManager::ui;
 
+UIManager::UIManager() {
+	//Define appearance of widgets
+	sf::Font stndFont;
+	stndFont.loadFromFile("UnbeknownstStnd.ttf");
+	//EditBox
+	editBox = tgui::EditBox::create();
+	editBox->getRenderer()->setBackgroundColor(sf::Color(0, 0, 0, 0));
+	editBox->getRenderer()->setCaretColor(sf::Color(130, 130, 130, 255));
+	editBox->getRenderer()->setTextColor(sf::Color(130, 130, 130, 255));
+	editBox->getRenderer()->setBorders(tgui::Borders(0));
+	editBox->getRenderer()->setSelectedTextColor(sf::Color(243, 243, 243, 255));
+	editBox->getRenderer()->setSelectedTextBackgroundColor(sf::Color(51, 51, 51, 255));
+
+	editBox->setCaretWidth(2);
+	editBox->setFont(stndFont);
+	editBox->setTextSize(16);
+	
+	editBox->setOpacity(0);
+	editBox->hide();
+	editBox->disable();
+	//ListBox
+	listBox = tgui::ListBox::create();
+	listBox->getRenderer()->setBackgroundColor(sf::Color(0, 0, 0, 0));
+	listBox->getRenderer()->setTextColor(sf::Color(130, 130, 130, 255));
+	listBox->getRenderer()->setBorders(tgui::Borders(0));
+	listBox->getRenderer()->setSelectedTextColor(sf::Color(243, 243, 243, 255));
+	listBox->getRenderer()->setSelectedBackgroundColor(sf::Color(51, 51, 51, 255));
+	listBox->getRenderer()->setHoverBackgroundColor(sf::Color(0, 0, 0, 0));
+
+	listBox->getScrollbar()->setOpacity(0);
+	listBox->getScrollbar()->disable();
+
+	listBox->setAutoScroll(false);
+	listBox->setFont(stndFont);
+	listBox->setTextSize(16);
+	listBox->hide();
+	listBox->disable();
+
+}
+
 void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui::Gui* gui) {
 	windowPtr = window;
 	guiPtr = gui;
@@ -64,6 +104,8 @@ void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui
 	abilityList->connect("MouseEntered", &UIManager::ShowButton, &ui, "AbilityList");
 	abilityList->connect("MouseLeft", &UIManager::HideTab, &ui, 2);
 
+	guiPtr->add(editBox, "EditBox");
+	guiPtr->add(listBox, "ListBox");
 }
 
 void UIManager::Render() {

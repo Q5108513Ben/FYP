@@ -13,7 +13,7 @@ class UIManager {
 		static UIManager* Instance() { return &ui; }
 
 	protected:
-		UIManager() {}
+		UIManager();
 
 	private:
 		void WindowDragOn();
@@ -41,6 +41,9 @@ class UIManager {
 		bool playerTabActive{ false };
 		bool enemyTabActive{ false };
 		bool abilityTabActive{ false };
+
+		tgui::EditBox::Ptr editBox;
+		tgui::ListBox::Ptr listBox;
 
 		static UIManager ui;
 };

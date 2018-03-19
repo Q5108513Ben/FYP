@@ -8,6 +8,16 @@ struct Position {
 	Position(int xPos, int yPos) : x(xPos), y(yPos) {}
 };
 
+namespace TextureCreator {
+	static tgui::Texture Create(std::string fileName) {
+		TextureManager::Instance()->LoadTexture(fileName);
+		tgui::Texture texture;
+		texture.load(TextureManager::Instance()->textures[fileName]);
+
+		return texture;
+	}
+}
+
 namespace SpriteCreator {
 	static sf::Sprite Create(std::string fileName) {
 		TextureManager::Instance()->LoadTexture(fileName);

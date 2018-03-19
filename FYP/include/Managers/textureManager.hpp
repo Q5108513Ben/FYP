@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include "TGUI\TGUI.hpp"
 #include <unordered_map>
 
 class TextureManager {
