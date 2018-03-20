@@ -22,8 +22,11 @@ class CharacterEditState : public State {
 	private:
 		std::vector<sf::Sprite> sprites;
 
-		void ShowSearch();
-		void UnfocusSearch();
+		void ShowSearch(sf::String imageName, sf::String searchName);
+		void UnfocusSearch(sf::String imageName, sf::String searchName);
+		void LoadCharacter();
+		
+		bool CheckListSelected();
 		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };

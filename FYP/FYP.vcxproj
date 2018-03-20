@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Generic\genericCharacter.cpp" />
+    <ClCompile Include="src\Managers\dataManager.cpp" />
     <ClCompile Include="external\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\StateMachine\States\abilityEditor.cpp" />
@@ -32,6 +34,8 @@
     <ClCompile Include="src\Managers\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Generic\genericCharacter.hpp" />
+    <ClInclude Include="include\Managers\dataManager.hpp" />
     <ClInclude Include="external\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\includeStates.hpp" />
     <ClInclude Include="include\Additional\spriteCreator.hpp" />
@@ -45,6 +49,11 @@
     <ClInclude Include="include\Managers\textureManager.hpp" />
     <ClInclude Include="include\StateMachine\virtualState.hpp" />
     <ClInclude Include="include\Managers\UIManager.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="data\Character.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{42bda97f-a8f5-4d8e-92ff-63b186190246}</ProjectGuid>
