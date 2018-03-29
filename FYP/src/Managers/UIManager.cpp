@@ -21,7 +21,6 @@ UIManager::UIManager() {
 	editBox->setFont(stndFont);
 	editBox->setTextSize(16);
 	
-	editBox->setOpacity(0);
 	editBox->hide();
 	editBox->disable();
 	//ListBox
