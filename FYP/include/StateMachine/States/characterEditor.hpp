@@ -27,6 +27,15 @@ class CharacterEditState : public State {
 		void LoadCharacter();
 		
 		bool CheckListSelected();
+
+		void CheckNameChange();
+
+		void CheckSearchBar();
+		bool searchEntered{ false };
+
+		sf::String nameSaved{ "" };
+		sf::String nameEdited{ "" };
+		bool nameChanged = false;
 		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };

@@ -34,6 +34,7 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	searchText->setSize(144, 18);
 	guiRef->add(searchText, "SearchText");
 	searchText->connect("Unfocused", &CharacterEditState::UnfocusSearch, &characterstate, "Search", "SearchText");
+	searchText->connect("Unfocused", &CharacterEditState::CheckSearchBar, &characterstate);
 
 	//---------Character-List----------\\
 
@@ -63,6 +64,7 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	nameText->setSize(183, 21);
 	guiRef->add(nameText, "CharacterNameText");
 	nameText->connect("Unfocused", &CharacterEditState::UnfocusSearch, &characterstate, "CharacterName", "CharacterNameText");
+	nameText->connect("Unfocused", &CharacterEditState::CheckNameChange, &characterstate);
 }
 
 void CharacterEditState::CleanUp() {
@@ -71,21 +73,31 @@ void CharacterEditState::CleanUp() {
 
 void CharacterEditState::Pause() {
 	guiRef->get("Search")->hide();
-	guiRef->get("SearchText")->hide();
+	guiRef->get("SearchText")->setOpacity(0);
 	guiRef->get("CharacterList")->hide();
-	guiRef->get("CharacterInfo")->hide();
+	guiRef->get("CharacterInfo")->setOpacity(0);
 	guiRef->get("CharacterName")->hide();
 	guiRef->get("CharacterNameText")->hide();
 }
 
 void CharacterEditState::Resume() {
-	guiRef->get("Search")->show();
-	guiRef->get("SearchText")->show();
-	guiRef->get("CharacterList")->show();	
-	guiRef->get("CharacterInfo")->show();
+	if (!searchEntered) {
+		guiRef->get("Search")->show();
+	}
+
+	guiRef->get("SearchText")->setOpacity(100);
+	guiRef->get("CharacterList")->show();
 
 	if (CheckListSelected()) {
-		LoadCharacter();
+		guiRef->get("CharacterNameText")->show();
+		guiRef->get("CharacterInfo")->setOpacity(100);
+
+		if (nameChanged) {
+			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameEdited);
+		}
+		else {
+			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameSaved);
+		}
 	}
 }
 
@@ -105,9 +117,8 @@ void CharacterEditState::Render(StateMachine* machine) {
 }
 
 void CharacterEditState::ShowSearch(sf::String imageName, sf::String searchName) {
-	guiRef->get(imageName)->setOpacity(0);
+	guiRef->get(imageName)->hide();
 	guiRef->get(searchName)->show();
-	guiRef->get(searchName)->setOpacity(100);
 	guiRef->get(searchName)->focus();
 }
 
@@ -119,19 +130,15 @@ void CharacterEditState::UnfocusSearch(sf::String imageName, sf::String searchNa
 		return;
 	}
 	else {
-		guiRef->get(searchName)->setOpacity(0);
 		guiRef->get(searchName)->hide();
-		guiRef->get(imageName)->setOpacity(100);
 		guiRef->get(imageName)->showWithEffect(tgui::ShowAnimationType::Fade, sf::seconds(0.25));
 	}
 }
 
 void CharacterEditState::LoadCharacter() {
 	guiRef->get("CharacterNameText")->show();
-	guiRef->get("CharacterNameText")->setOpacity(100);
 	guiRef->get("CharacterInfo")->setOpacity(100);
-	guiRef->get("CharacterName")->show();
-	guiRef->get("CharacterName")->setOpacity(0);
+	guiRef->get("CharacterName")->hide();
 
 	auto selected = guiRef->get<tgui::ListBox>("CharacterList")->getSelectedItemId();
 	unsigned int itemID = (unsigned int)*selected.getData();
@@ -142,6 +149,7 @@ void CharacterEditState::LoadCharacter() {
 	auto tempChar = DataManager::Instance()->GetCharacter(itemID);
 
 	guiRef->get<tgui::EditBox>("CharacterNameText")->setText(tempChar.GetName());
+	nameSaved = tempChar.GetName();
 }
 
 bool CharacterEditState::CheckListSelected() {
@@ -149,4 +157,34 @@ bool CharacterEditState::CheckListSelected() {
 		return false;
 	}
 	return true;
+}
+
+void CharacterEditState::CheckNameChange() {
+	sf::String textInBox = guiRef->get<tgui::EditBox>("CharacterNameText")->getText();
+	sf::String noText = "";
+
+	if (textInBox != noText) {
+		if (textInBox != nameSaved) {
+			nameChanged = true;
+			nameEdited = textInBox;
+			return;
+		}
+		nameChanged = false;
+		return;
+	}
+	else {
+		nameChanged = false;
+	}
+}
+
+void CharacterEditState::CheckSearchBar() {
+	sf::String textInBox = guiRef->get<tgui::EditBox>("SearchText")->getText();
+	sf::String noText = "";
+
+	if (textInBox != noText) {
+		searchEntered = true;
+	}
+	else {
+		searchEntered = false;
+	}
 }
