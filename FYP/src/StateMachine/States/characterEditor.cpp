@@ -63,6 +63,7 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	nameText->setSize(183, 21);
 	guiRef->add(nameText, "CharacterNameText");
 	nameText->connect("Unfocused", &CharacterEditState::UnfocusSearch, &characterstate, "CharacterName", "CharacterNameText");
+	nameText->connect("Unfocused", &CharacterEditState::CheckNameChange, &characterstate);
 }
 
 void CharacterEditState::CleanUp() {
@@ -81,11 +82,23 @@ void CharacterEditState::Pause() {
 void CharacterEditState::Resume() {
 	guiRef->get("Search")->show();
 	guiRef->get("SearchText")->show();
-	guiRef->get("CharacterList")->show();	
+	guiRef->get("CharacterList")->show();
 	guiRef->get("CharacterInfo")->show();
+	guiRef->get("CharacterInfo")->setOpacity(0);
 
 	if (CheckListSelected()) {
-		LoadCharacter();
+		guiRef->get("CharacterNameText")->show();
+		guiRef->get("CharacterNameText")->setOpacity(100);
+		guiRef->get("CharacterInfo")->setOpacity(100);
+		guiRef->get("CharacterName")->show();
+		guiRef->get("CharacterName")->setOpacity(0);
+
+		if (nameChanged) {
+			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameEdited);
+		}
+		else {
+			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameSaved);
+		}
 	}
 }
 
@@ -105,6 +118,7 @@ void CharacterEditState::Render(StateMachine* machine) {
 }
 
 void CharacterEditState::ShowSearch(sf::String imageName, sf::String searchName) {
+	guiRef->get(imageName)->hide();
 	guiRef->get(imageName)->setOpacity(0);
 	guiRef->get(searchName)->show();
 	guiRef->get(searchName)->setOpacity(100);
@@ -142,6 +156,7 @@ void CharacterEditState::LoadCharacter() {
 	auto tempChar = DataManager::Instance()->GetCharacter(itemID);
 
 	guiRef->get<tgui::EditBox>("CharacterNameText")->setText(tempChar.GetName());
+	nameSaved = tempChar.GetName();
 }
 
 bool CharacterEditState::CheckListSelected() {
@@ -149,4 +164,22 @@ bool CharacterEditState::CheckListSelected() {
 		return false;
 	}
 	return true;
+}
+
+void CharacterEditState::CheckNameChange() {
+	sf::String textInBox = guiRef->get<tgui::EditBox>("CharacterNameText")->getText();
+	sf::String noText = "";
+
+	if (textInBox != noText) {
+		if (textInBox != nameSaved) {
+			nameChanged = true;
+			nameEdited = textInBox;
+			return;
+		}
+		nameChanged = false;
+		return;
+	}
+	else {
+		nameChanged = false;
+	}
 }
