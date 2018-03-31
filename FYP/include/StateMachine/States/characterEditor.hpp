@@ -25,8 +25,9 @@ class CharacterEditState : public State {
 		void ShowSearch(sf::String imageName, sf::String searchName);
 		void UnfocusSearch(sf::String imageName, sf::String searchName);
 		void LoadCharacter();
+		void LoadClass();
 		
-		bool CheckListSelected();
+		bool CheckListSelected(sf::String listName);
 
 		void CheckNameChange();
 
