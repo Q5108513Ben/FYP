@@ -11,7 +11,7 @@ void GenericCharacter::RetrieveCharacterData(tinyxml2::XMLElement* dataPtr) {
 		c.classID = dataPtr->FirstChildElement("ID")->FloatText();
 		c.className = dataPtr->FirstChildElement("ClassName")->GetText();
 
-		classes.push_back(c);
+		classes[c.classID] = c;
 
 		dataPtr = dataPtr->NextSiblingElement();
 	}

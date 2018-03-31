@@ -19,9 +19,13 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	sprites.push_back(SpriteCreator::Create("ListBackground.png", Position(810, 330)));
 
 	auto characterInfo = ButtonCreator::Create("CharacterInfo.png", Position(24, 105));
+	characterInfo->setOpacity(100);
+	characterInfo->hide();
 	guiRef->add(characterInfo, "CharacterInfo");
 
 	auto classInfo = ButtonCreator::Create("ClassInfo.png", Position(345, 90));
+	classInfo->setOpacity(100);
+	classInfo->hide();
 	guiRef->add(classInfo, "ClassInfo");
 
 	//------Character-List-Search------\\
@@ -92,6 +96,7 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	classNameText->setSize(183, 21);
 	guiRef->add(classNameText, "ClassNameText");
 	classNameText->connect("Unfocused", &CharacterEditState::UnfocusSearch, &characterstate, "ClassName", "ClassNameText");
+	classNameText->connect("Unfocused", &CharacterEditState::CheckClassNameChange, &characterstate);
 }
 
 void CharacterEditState::CleanUp() {
@@ -99,41 +104,29 @@ void CharacterEditState::CleanUp() {
 }
 
 void CharacterEditState::Pause() {
-	guiRef->get("Search")->hide();
-	guiRef->get("SearchText")->setOpacity(0);
-	guiRef->get("CharacterList")->hide();
-	guiRef->get("CharacterInfo")->setOpacity(0);
-	guiRef->get("CharacterName")->hide();
-	guiRef->get("CharacterNameText")->hide();
-	
-	guiRef->get("ClassList")->hide();
-	guiRef->get("ClassInfo")->setOpacity(0);
-	guiRef->get("ClassName")->hide();
-	guiRef->get("ClassNameText")->hide();
+	HideUI(CharacterList);
+	HideUI(CharacterInfo);
+	HideUI(ClassInfo);
 }
 
 void CharacterEditState::Resume() {
-	if (!searchEntered) {
-		guiRef->get("Search")->show();
-	}
-
-	guiRef->get("SearchText")->setOpacity(100);
+	(!searchEntered) ? guiRef->get("Search")->show() : guiRef->get("SearchText")->show();
 	guiRef->get("CharacterList")->show();
 
 	if (CheckListSelected("CharacterList")) {
+		guiRef->get("CharacterInfo")->show();
 		guiRef->get("CharacterNameText")->show();
-		guiRef->get("CharacterInfo")->setOpacity(100);
 		guiRef->get("ClassList")->show();
 
-		if (nameChanged) {
-			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameEdited);
-		}
-		else {
-			guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameSaved);
-		}
+		(nameChanged) ? guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameEdited) :
+						guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameSaved);
 
 		if (CheckListSelected("ClassList")) {
-			guiRef->get("ClassInfo")->setOpacity(100);
+			guiRef->get("ClassInfo")->show();
+			guiRef->get("ClassNameText")->show();
+
+			(classNameChanged) ? guiRef->get<tgui::EditBox>("ClassNameText")->setText(classNameEdited) :
+								 guiRef->get<tgui::EditBox>("ClassNameText")->setText(classNameSaved);
 		}
 	}
 }
@@ -174,28 +167,21 @@ void CharacterEditState::UnfocusSearch(sf::String imageName, sf::String searchNa
 
 void CharacterEditState::LoadCharacter() {
 	if (!CheckListSelected("CharacterList")) {
-		guiRef->get("CharacterNameText")->hide();
-		guiRef->get("CharacterInfo")->setOpacity(0);
-		guiRef->get("CharacterName")->hide();
-
-
-		guiRef->get("ClassList")->hide();
-		guiRef->get("ClassInfo")->setOpacity(0);
+		HideUI(CharacterInfo);
+		HideUI(ClassInfo);
 		return;
 	}
-
-	guiRef->get("CharacterNameText")->show();
-	guiRef->get("CharacterInfo")->setOpacity(100);
+	guiRef->get("CharacterInfo")->show();
 	guiRef->get("CharacterName")->hide();
+	guiRef->get("CharacterNameText")->show();
 	guiRef->get("ClassList")->show();
-	guiRef->get("ClassInfo")->setOpacity(0);
-	guiRef->get("ClassName")->hide();
-
+	
+	HideUI(ClassInfo);
+	
 	auto selected = guiRef->get<tgui::ListBox>("CharacterList")->getSelectedItemId();
 	unsigned int itemID = (unsigned int)*selected.getData();
-	if (itemID == NULL) {
-		return;
-	}
+
+	if (itemID == NULL) { return; }
 
 	auto tempChar = DataManager::Instance()->GetCharacter(itemID);
 
@@ -205,19 +191,34 @@ void CharacterEditState::LoadCharacter() {
 	guiRef->get<tgui::ListBox>("ClassList")->removeAllItems();
 
 	for (auto c : tempChar.GetClasses()) {
-		guiRef->get<tgui::ListBox>("ClassList")->addItem(c.className, c.classID);
+		guiRef->get<tgui::ListBox>("ClassList")->addItem(c.second.className, c.first);
 	}
 }
 
 void CharacterEditState::LoadClass() {
 	if (!CheckListSelected("ClassList")) {
-		guiRef->get("ClassInfo")->setOpacity(0);
-		guiRef->get("ClassName")->hide();
+		HideUI(ClassInfo);
 		return;
 	}
 
-	guiRef->get("ClassInfo")->setOpacity(100);
-	guiRef->get("ClassName")->show();
+	guiRef->get("ClassInfo")->show();
+	guiRef->get("ClassName")->hide();
+	guiRef->get("ClassNameText")->show();
+
+	auto selectedCharacter = guiRef->get<tgui::ListBox>("CharacterList")->getSelectedItemId();
+	unsigned int characterID = (unsigned int)*selectedCharacter.getData();
+
+	auto selectedClass = guiRef->get<tgui::ListBox>("ClassList")->getSelectedItemId();
+	unsigned int classID = (unsigned int)*selectedClass.getData();
+
+	if (classID == NULL) { return; }
+
+	auto tempChar = DataManager::Instance()->GetCharacter(characterID);
+	auto tempClass = tempChar.GetClass(classID);
+
+	guiRef->get<tgui::EditBox>("ClassNameText")->setText(tempClass.className);
+	classNameSaved = tempClass.className;
+
 }
 
 bool CharacterEditState::CheckListSelected(sf::String listName) {
@@ -245,6 +246,24 @@ void CharacterEditState::CheckNameChange() {
 	}
 }
 
+void CharacterEditState::CheckClassNameChange() {
+	sf::String textInBox = guiRef->get<tgui::EditBox>("ClassNameText")->getText();
+	sf::String noText = "";
+
+	if (textInBox != noText) {
+		if (textInBox != classNameSaved) {
+			classNameChanged = true;
+			classNameEdited = textInBox;
+			return;
+		}
+		classNameChanged = false;
+		return;
+	}
+	else {
+		classNameChanged = false;
+	}
+}
+
 void CharacterEditState::CheckSearchBar() {
 	sf::String textInBox = guiRef->get<tgui::EditBox>("SearchText")->getText();
 	sf::String noText = "";
@@ -254,5 +273,26 @@ void CharacterEditState::CheckSearchBar() {
 	}
 	else {
 		searchEntered = false;
+	}
+}
+
+void CharacterEditState::HideUI(UI ui) {
+	switch (ui) {
+	case CharacterList:
+		guiRef->get("Search")->hide();
+		guiRef->get("SearchText")->hide();
+		guiRef->get("CharacterList")->hide();
+		break;
+	case CharacterInfo:
+		guiRef->get("CharacterInfo")->hide();
+		guiRef->get("CharacterName")->hide();
+		guiRef->get("CharacterNameText")->hide();
+		guiRef->get("ClassList")->hide();
+		break;
+	case ClassInfo:
+		guiRef->get("ClassInfo")->hide();
+		guiRef->get("ClassName")->hide();
+		guiRef->get("ClassNameText")->hide();
+		break;
 	}
 }

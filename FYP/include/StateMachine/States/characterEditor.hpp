@@ -20,6 +20,12 @@ class CharacterEditState : public State {
 		CharacterEditState() { }
 
 	private:
+		enum UI {
+			CharacterList,
+			CharacterInfo,
+			ClassInfo
+		};
+
 		std::vector<sf::Sprite> sprites;
 
 		void ShowSearch(sf::String imageName, sf::String searchName);
@@ -30,6 +36,9 @@ class CharacterEditState : public State {
 		bool CheckListSelected(sf::String listName);
 
 		void CheckNameChange();
+		void CheckClassNameChange();
+
+		void HideUI(UI ui);
 
 		void CheckSearchBar();
 		bool searchEntered{ false };
@@ -37,6 +46,10 @@ class CharacterEditState : public State {
 		sf::String nameSaved{ "" };
 		sf::String nameEdited{ "" };
 		bool nameChanged = false;
+
+		sf::String classNameSaved{ "" };
+		sf::String classNameEdited{ "" };
+		bool classNameChanged = false;
 		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };

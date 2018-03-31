@@ -5,7 +5,7 @@
     <CharacterName>Character1</CharacterName>
     <Classes>
       <Class1>
-        <ID>0</ID>
+        <ID>1</ID>
         <ClassName>Class1</ClassName>
         <Stats>
           <Strength>0</Strength>
@@ -19,7 +19,7 @@
         </Abilities>
       </Class1>
       <Class2>
-        <ID>1</ID>
+        <ID>2</ID>
         <ClassName>Class2</ClassName>
         <Stats>
           <Strength>0</Strength>
@@ -39,7 +39,7 @@
     <CharacterName>Character2</CharacterName>
     <Classes>
       <Class1>
-        <ID>2</ID>
+        <ID>1</ID>
         <ClassName>Class1</ClassName>
         <Stats>
           <Strength>0</Strength>

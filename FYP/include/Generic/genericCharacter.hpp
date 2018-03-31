@@ -1,6 +1,6 @@
 #pragma once
 #include "tinyxml2.h"
-#include <vector>
+#include <unordered_map>
 #include <iostream>
 
 class GenericCharacter {
@@ -14,7 +14,8 @@ class GenericCharacter {
 
 		const unsigned int& GetID() { return characterID; }
 		const std::string& GetName() { return characterName; }
-		const std::vector<Class>& GetClasses() { return classes; }
+		const std::unordered_map<unsigned int, Class>& GetClasses() { return classes; }
+		const Class& GetClass(unsigned int id) { return classes[id]; }
 
 		void RetrieveCharacterData(tinyxml2::XMLElement* dataPtr);
 
@@ -22,5 +23,5 @@ class GenericCharacter {
 
 		unsigned int characterID{ 0 };
 		std::string characterName{ " " };
-		std::vector<Class> classes;
+		std::unordered_map<unsigned int, Class> classes;
 };
