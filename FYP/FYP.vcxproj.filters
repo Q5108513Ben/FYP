@@ -101,6 +101,9 @@
     <ClInclude Include="include\Generic\genericCharacter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Additional\typeConverter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\Character.xml" />

@@ -1,5 +1,6 @@
 #include "includeStates.hpp"
 #include "Additional/spriteCreator.hpp"
+#include "Additional/typeConverter.hpp"
 #include "Managers/dataManager.hpp"
 
 CharacterEditState CharacterEditState::characterstate;
@@ -97,6 +98,35 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	guiRef->add(classNameText, "ClassNameText");
 	classNameText->connect("Unfocused", &CharacterEditState::UnfocusSearch, &characterstate, "ClassName", "ClassNameText");
 	classNameText->connect("Unfocused", &CharacterEditState::CheckClassNameChange, &characterstate);
+
+	//-----------Class-Stats-----------\\
+	
+	auto statTotal = tgui::EditBox::copy(guiRef->get<tgui::EditBox>("EditBox"));
+	statTotal->show();
+	statTotal->setPosition(570, 144);
+	statTotal->setSize(33, 21);
+	statTotal->setAlignment(tgui::EditBox::Alignment::Right);
+	statTotal->setText(std::to_string(statRemaining));
+	statTotal->getRenderer()->setTextColor(sf::Color(51, 51, 51, 255));
+	statTotal->setTextSize(24);
+	guiRef->add(statTotal, "StatTotal");
+
+	unsigned int offset = 0;
+
+	for (int i = 0; i < 6; i++) {
+		auto statValue = tgui::EditBox::copy(guiRef->get<tgui::EditBox>("EditBox"));
+		statValue->enable();
+		statValue->show();
+		statValue->setPosition(567, 174 + offset);
+		statValue->setSize(30, 21);
+		statValue->setAlignment(tgui::EditBox::Alignment::Right);
+		statValue->setText("0");
+		statValue->setMaximumCharacters(2);
+		guiRef->add(statValue, "StatValue" + i);
+		statValue->connect("Unfocused", &CharacterEditState::UpdateStatTotal, &characterstate, i);
+
+		offset += 24;
+	}
 }
 
 void CharacterEditState::CleanUp() {
@@ -264,16 +294,56 @@ void CharacterEditState::CheckClassNameChange() {
 	}
 }
 
+void CharacterEditState::UpdateStatTotal(int index) {
+	sf::String textInBox = guiRef->get<tgui::EditBox>("StatValue" + index)->getText();
+	std::string stringInBox = textInBox;
+	int valueInBox = Convert::StringToInt(stringInBox);
+
+	switch (index) {
+	case 0:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val0) ? IncStatRemaining(val0, valueInBox) : DecStatRemaining(val0, valueInBox);
+		return;
+	case 1:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val1) ? IncStatRemaining(val1, valueInBox) : DecStatRemaining(val1, valueInBox);
+		return;
+	case 2:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val2) ? IncStatRemaining(val2, valueInBox) : DecStatRemaining(val2, valueInBox);
+		return;
+	case 3:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val3) ? IncStatRemaining(val3, valueInBox) : DecStatRemaining(val3, valueInBox);
+		return;
+	case 4:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val4) ? IncStatRemaining(val4, valueInBox) : DecStatRemaining(val4, valueInBox);
+		return;
+	case 5:
+		if (valueInBox < 0) {
+			return;
+		}
+		(valueInBox < val5) ? IncStatRemaining(val5, valueInBox) : DecStatRemaining(val5, valueInBox);
+		return;
+	}
+}
+
 void CharacterEditState::CheckSearchBar() {
 	sf::String textInBox = guiRef->get<tgui::EditBox>("SearchText")->getText();
 	sf::String noText = "";
 
-	if (textInBox != noText) {
-		searchEntered = true;
-	}
-	else {
-		searchEntered = false;
-	}
+	(textInBox != noText) ? searchEntered = true : searchEntered = false;
 }
 
 void CharacterEditState::HideUI(UI ui) {
@@ -294,5 +364,25 @@ void CharacterEditState::HideUI(UI ui) {
 		guiRef->get("ClassName")->hide();
 		guiRef->get("ClassNameText")->hide();
 		break;
+	}
+}
+
+void CharacterEditState::IncStatRemaining(int& stat, int newValue) {
+	statRemaining += stat - newValue;
+	stat = newValue;
+	guiRef->get<tgui::EditBox>("StatTotal")->setText(std::to_string(statRemaining));
+}
+
+bool CharacterEditState::DecStatRemaining(int& stat, int newValue) {
+	statRemaining -= newValue - stat;
+	
+	if (statRemaining < 0) {
+		statRemaining += newValue - stat;
+		return false;
+	}
+	else {
+		stat = newValue;
+		guiRef->get<tgui::EditBox>("StatTotal")->setText(std::to_string(statRemaining));
+		return true;
 	}
 }

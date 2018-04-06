@@ -34,6 +34,7 @@
     <ClCompile Include="src\Managers\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Additional\typeConverter.hpp" />
     <ClInclude Include="include\Generic\genericCharacter.hpp" />
     <ClInclude Include="include\Managers\dataManager.hpp" />
     <ClInclude Include="external\TinyXML2\tinyxml2.h" />

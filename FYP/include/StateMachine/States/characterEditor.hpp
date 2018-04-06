@@ -37,6 +37,7 @@ class CharacterEditState : public State {
 
 		void CheckNameChange();
 		void CheckClassNameChange();
+		void UpdateStatTotal(int index);
 
 		void HideUI(UI ui);
 
@@ -50,6 +51,11 @@ class CharacterEditState : public State {
 		sf::String classNameSaved{ "" };
 		sf::String classNameEdited{ "" };
 		bool classNameChanged = false;
+
+		int val0{ 0 }, val1{ 0 }, val2{ 0 }, val3{ 0 }, val4{ 0 }, val5{ 0 };
+		int statRemaining{ 12 };
+		void IncStatRemaining(int& stat, int newValue);
+		bool DecStatRemaining(int& stat, int newValue);
 		
 		static CharacterEditState characterstate;
 		sf::RenderWindow* windowRef{ nullptr };
