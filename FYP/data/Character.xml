@@ -8,11 +8,11 @@
         <ID>1</ID>
         <ClassName>Class1</ClassName>
         <Stats>
-          <Strength>0</Strength>
-          <Constitution>0</Constitution>
-          <Wisdom>0</Wisdom>
-          <Resilience>0</Resilience>
-          <Resistance>0</Resistance>
+          <MainStat>2</MainStat>
+          <Constitution>3</Constitution>
+          <Wisdom>3</Wisdom>
+          <Resilience>2</Resilience>
+          <Resistance>2</Resistance>
           <Affliction>0</Affliction>
         </Stats>
         <Abilities>
@@ -22,7 +22,7 @@
         <ID>2</ID>
         <ClassName>Class2</ClassName>
         <Stats>
-          <Strength>0</Strength>
+          <MainStat>0</MainStat>
           <Constitution>0</Constitution>
           <Wisdom>0</Wisdom>
           <Resilience>0</Resilience>
@@ -42,7 +42,7 @@
         <ID>1</ID>
         <ClassName>Class1</ClassName>
         <Stats>
-          <Strength>0</Strength>
+          <MainStat>0</MainStat>
           <Constitution>0</Constitution>
           <Wisdom>0</Wisdom>
           <Resilience>0</Resilience>

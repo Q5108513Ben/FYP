@@ -7,9 +7,19 @@ class GenericCharacter {
 
 	public:
 
+		struct Stats {
+			int rawMainStat;
+			int rawConstitution;
+			int rawWisdom;
+			int rawResilience;
+			int rawResistance;
+			int rawAffliction;
+		};
+
 		struct Class {
 			unsigned int classID;
 			std::string className;
+			Stats classStats;
 		};
 
 		const unsigned int& GetID() { return characterID; }

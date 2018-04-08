@@ -102,7 +102,6 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	//-----------Class-Stats-----------\\
 	
 	auto statTotal = tgui::EditBox::copy(guiRef->get<tgui::EditBox>("EditBox"));
-	statTotal->show();
 	statTotal->setPosition(570, 144);
 	statTotal->setSize(33, 21);
 	statTotal->setAlignment(tgui::EditBox::Alignment::Right);
@@ -116,7 +115,6 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	for (int i = 0; i < 6; i++) {
 		auto statValue = tgui::EditBox::copy(guiRef->get<tgui::EditBox>("EditBox"));
 		statValue->enable();
-		statValue->show();
 		statValue->setPosition(567, 174 + offset);
 		statValue->setSize(30, 21);
 		statValue->setAlignment(tgui::EditBox::Alignment::Right);
@@ -154,6 +152,8 @@ void CharacterEditState::Resume() {
 		if (CheckListSelected("ClassList")) {
 			guiRef->get("ClassInfo")->show();
 			guiRef->get("ClassNameText")->show();
+			guiRef->get("StatTotal")->show();
+			for (int i = 0; i < 6; i++) { guiRef->get("StatValue" + i)->show(); }
 
 			(classNameChanged) ? guiRef->get<tgui::EditBox>("ClassNameText")->setText(classNameEdited) :
 								 guiRef->get<tgui::EditBox>("ClassNameText")->setText(classNameSaved);
@@ -234,6 +234,8 @@ void CharacterEditState::LoadClass() {
 	guiRef->get("ClassInfo")->show();
 	guiRef->get("ClassName")->hide();
 	guiRef->get("ClassNameText")->show();
+	guiRef->get("StatTotal")->show();
+	for (int i = 0; i < 6; i++) { guiRef->get("StatValue" + i)->show(); }
 
 	auto selectedCharacter = guiRef->get<tgui::ListBox>("CharacterList")->getSelectedItemId();
 	unsigned int characterID = (unsigned int)*selectedCharacter.getData();
@@ -249,6 +251,20 @@ void CharacterEditState::LoadClass() {
 	guiRef->get<tgui::EditBox>("ClassNameText")->setText(tempClass.className);
 	classNameSaved = tempClass.className;
 
+	guiRef->get<tgui::EditBox>("StatValue" + 0)->setText(std::to_string(tempClass.classStats.rawMainStat));
+	guiRef->get<tgui::EditBox>("StatValue" + 1)->setText(std::to_string(tempClass.classStats.rawConstitution));
+	guiRef->get<tgui::EditBox>("StatValue" + 2)->setText(std::to_string(tempClass.classStats.rawWisdom));
+	guiRef->get<tgui::EditBox>("StatValue" + 3)->setText(std::to_string(tempClass.classStats.rawResilience));
+	guiRef->get<tgui::EditBox>("StatValue" + 4)->setText(std::to_string(tempClass.classStats.rawResistance));
+	guiRef->get<tgui::EditBox>("StatValue" + 5)->setText(std::to_string(tempClass.classStats.rawAffliction));
+	val0 = tempClass.classStats.rawMainStat;
+	val1 = tempClass.classStats.rawConstitution;
+	val2 = tempClass.classStats.rawWisdom;
+	val3 = tempClass.classStats.rawResilience;
+	val4 = tempClass.classStats.rawResistance;
+	val5 = tempClass.classStats.rawAffliction;
+	statRemaining = 12 - (val0 + val1 + val2 + val3 + val4 + val5);
+	guiRef->get<tgui::EditBox>("StatTotal")->setText(std::to_string(statRemaining));
 }
 
 bool CharacterEditState::CheckListSelected(sf::String listName) {
@@ -297,43 +313,29 @@ void CharacterEditState::CheckClassNameChange() {
 void CharacterEditState::UpdateStatTotal(int index) {
 	sf::String textInBox = guiRef->get<tgui::EditBox>("StatValue" + index)->getText();
 	std::string stringInBox = textInBox;
+
+	if (stringInBox == "") { return; }
+
 	int valueInBox = Convert::StringToInt(stringInBox);
 
+	if (valueInBox < 0) { return; }
 	switch (index) {
 	case 0:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val0) ? IncStatRemaining(val0, valueInBox) : DecStatRemaining(val0, valueInBox);
 		return;
 	case 1:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val1) ? IncStatRemaining(val1, valueInBox) : DecStatRemaining(val1, valueInBox);
 		return;
 	case 2:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val2) ? IncStatRemaining(val2, valueInBox) : DecStatRemaining(val2, valueInBox);
 		return;
 	case 3:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val3) ? IncStatRemaining(val3, valueInBox) : DecStatRemaining(val3, valueInBox);
 		return;
 	case 4:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val4) ? IncStatRemaining(val4, valueInBox) : DecStatRemaining(val4, valueInBox);
 		return;
 	case 5:
-		if (valueInBox < 0) {
-			return;
-		}
 		(valueInBox < val5) ? IncStatRemaining(val5, valueInBox) : DecStatRemaining(val5, valueInBox);
 		return;
 	}
@@ -363,6 +365,8 @@ void CharacterEditState::HideUI(UI ui) {
 		guiRef->get("ClassInfo")->hide();
 		guiRef->get("ClassName")->hide();
 		guiRef->get("ClassNameText")->hide();
+		guiRef->get("StatTotal")->hide();
+		for (int i = 0; i < 6; i++) { guiRef->get("StatValue" + i)->hide(); }
 		break;
 	}
 }
