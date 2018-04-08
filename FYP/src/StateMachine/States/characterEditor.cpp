@@ -215,9 +215,9 @@ void CharacterEditState::LoadCharacter() {
 
 	auto tempChar = DataManager::Instance()->GetCharacter(itemID);
 
-	guiRef->get<tgui::EditBox>("CharacterNameText")->setText(tempChar.GetName());
 	nameSaved = tempChar.GetName();
-
+	guiRef->get<tgui::EditBox>("CharacterNameText")->setText(nameSaved);
+	
 	guiRef->get<tgui::ListBox>("ClassList")->removeAllItems();
 
 	for (auto c : tempChar.GetClasses()) {

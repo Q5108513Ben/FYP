@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Enemy1>
+    <ID>1</ID>
+    <EnemyName>Enemy1</EnemyName>
+  </Enemy1>
+  <Enemy2>
+    <ID>2</ID>
+    <EnemyName>Enemy2</EnemyName>
+  </Enemy2>
+</Root>

@@ -14,3 +14,16 @@ void DataManager::RetrieveCharacterData(tinyxml2::XMLNode* root) {
 		characterPtr = characterPtr->NextSiblingElement();
 	}
 }
+
+void DataManager::RetrieveEnemyData(tinyxml2::XMLNode* root) {
+	tinyxml2::XMLElement* enemyPtr = root->FirstChildElement();
+
+	while (enemyPtr != nullptr) {
+		GenericEnemy enemy;
+		enemy.RetrieveEnemyData(enemyPtr);
+
+		enemiesMap[enemy.GetID()] = enemy;
+
+		enemyPtr = enemyPtr->NextSiblingElement();
+	}
+}
