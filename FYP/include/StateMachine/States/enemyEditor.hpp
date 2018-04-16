@@ -34,6 +34,7 @@ class EnemyEditState : public State {
 		void ShowSearch(sf::String imageName, sf::String searchName);
 		void UnfocusSearch(sf::String imageName, sf::String searchName);
 		void LoadEnemy();
+		void OpenTab(unsigned int tabID);
 
 		bool CheckListSelected(sf::String listName);
 
@@ -47,6 +48,9 @@ class EnemyEditState : public State {
 		sf::String nameSaved{ "" };
 		sf::String nameEdited{ "" };
 		bool nameChanged = false;
+
+		unsigned int tabSelected{ 0 };
+		bool isTabSelected{ false };
 
 		static EnemyEditState enemystate;
 		sf::RenderWindow* windowRef{ nullptr };

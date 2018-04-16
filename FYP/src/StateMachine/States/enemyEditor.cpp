@@ -22,6 +22,11 @@ void EnemyEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	enemyInfo->setOpacity(100);
 	enemyInfo->hide();
 	guiRef->add(enemyInfo, "EnemyInfo");
+
+	auto enemyStatInfo = ButtonCreator::Create("EnemyStatInfo.png", Position(345, 90));
+	enemyStatInfo->setOpacity(100);
+	enemyStatInfo->hide();
+	guiRef->add(enemyStatInfo, "EnemyStatInfo");
 	
 	//--------Enemy-List-Search-------\\
 
@@ -67,6 +72,40 @@ void EnemyEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	guiRef->add(nameText, "EnemyNameText");
 	nameText->connect("Unfocused", &EnemyEditState::UnfocusSearch, &enemystate, "EnemyName", "EnemyNameText");
 	nameText->connect("Unfocused", &EnemyEditState::CheckNameChange, &enemystate);
+
+	//--------------Tabs--------------\\
+
+	auto statTab = tgui::Button::create();
+	statTab->setPosition(245, 141);
+	statTab->setSize(24, 24);
+	statTab->setOpacity(0);
+	statTab->hide();
+	guiRef->add(statTab, "EnemyStatTab");
+	statTab->connect("Clicked", &EnemyEditState::OpenTab, &enemystate, 1);
+
+	auto abilityTab = tgui::Button::create();
+	abilityTab->setPosition(245, 174);
+	abilityTab->setSize(24, 24);
+	abilityTab->setOpacity(0);
+	abilityTab->hide();
+	guiRef->add(abilityTab, "EnemyAbilityTab");
+	abilityTab->connect("Clicked", &EnemyEditState::OpenTab, &enemystate, 2);
+
+	auto aiTab = tgui::Button::create();
+	aiTab->setPosition(245, 207);
+	aiTab->setSize(24, 24);
+	aiTab->setOpacity(0);
+	aiTab->hide();
+	guiRef->add(aiTab, "EnemyAITab");
+	aiTab->connect("Clicked", &EnemyEditState::OpenTab, &enemystate, 3);
+
+	auto dropTab = tgui::Button::create();
+	dropTab->setPosition(245, 240);
+	dropTab->setSize(24, 24);
+	dropTab->setOpacity(0);
+	dropTab->hide();
+	guiRef->add(dropTab, "EnemyDropTab");
+	dropTab->connect("Clicked", &EnemyEditState::OpenTab, &enemystate, 4);
 }
 
 void EnemyEditState::CleanUp() {
@@ -76,6 +115,7 @@ void EnemyEditState::CleanUp() {
 void EnemyEditState::Pause() {
 	HideUI(EnemyList);
 	HideUI(EnemyInfo);
+	HideUI(StatInfo);
 }
 
 void EnemyEditState::Resume() {
@@ -85,9 +125,27 @@ void EnemyEditState::Resume() {
 	if (CheckListSelected("EnemyList")) {
 		guiRef->get("EnemyInfo")->show();
 		guiRef->get("EnemyNameText")->show();
+		guiRef->get("EnemyStatTab")->show();
+		guiRef->get("EnemyAbilityTab")->show();
+		guiRef->get("EnemyAITab")->show();
+		guiRef->get("EnemyDropTab")->show();
 
 		(nameChanged) ? guiRef->get<tgui::EditBox>("EnemyNameText")->setText(nameEdited) :
 						guiRef->get<tgui::EditBox>("EnemyNameText")->setText(nameSaved);
+
+		if (isTabSelected) {
+			switch (tabSelected) {
+			case 1:
+				guiRef->get("EnemyStatInfo")->show();
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			}
+		}
 	}
 }
 
@@ -133,6 +191,10 @@ void EnemyEditState::LoadEnemy() {
 	guiRef->get("EnemyInfo")->show();
 	guiRef->get("EnemyName")->hide();
 	guiRef->get("EnemyNameText")->show();
+	guiRef->get("EnemyStatTab")->show();
+	guiRef->get("EnemyAbilityTab")->show();
+	guiRef->get("EnemyAITab")->show();
+	guiRef->get("EnemyDropTab")->show();
 
 	auto selected = guiRef->get<tgui::ListBox>("EnemyList")->getSelectedItemId();
 	unsigned int itemID = (unsigned int)*selected.getData();
@@ -143,6 +205,42 @@ void EnemyEditState::LoadEnemy() {
 
 	nameSaved = tempEnem.GetName();
 	guiRef->get<tgui::EditBox>("EnemyNameText")->setText(nameSaved);
+}
+
+void EnemyEditState::OpenTab(unsigned int tabID) {
+	switch (tabSelected) {
+	case 0:
+		break;
+	case 1:
+		HideUI(StatInfo);
+		break;
+	case 2:
+		HideUI(AbilityInfo);
+		break;
+	case 3:
+		HideUI(AIInfo);
+		break;
+	case 4:
+		HideUI(DropInfo);
+		break;
+	}
+	
+	switch (tabID) {
+	case 1:
+		tabSelected = 1;
+		guiRef->get("EnemyStatInfo")->show();
+		break;
+	case 2:
+		tabSelected = 2;
+		break;
+	case 3:
+		tabSelected = 3;
+		break;
+	case 4:
+		tabSelected = 4;
+		break;
+	}
+	isTabSelected = true;
 }
 
 bool EnemyEditState::CheckListSelected(sf::String listName) {
@@ -188,5 +286,19 @@ void EnemyEditState::HideUI(UI ui) {
 		guiRef->get("EnemyInfo")->hide();
 		guiRef->get("EnemyName")->hide();
 		guiRef->get("EnemyNameText")->hide();
+		guiRef->get("EnemyStatTab")->hide();
+		guiRef->get("EnemyAbilityTab")->hide();
+		guiRef->get("EnemyAITab")->hide();
+		guiRef->get("EnemyDropTab")->hide();
+		break;
+	case StatInfo:
+		guiRef->get("EnemyStatInfo")->hide();
+		break;
+	case AbilityInfo:
+		break;
+	case AIInfo:
+		break;
+	case DropInfo:
+		break;
 	}
 }
