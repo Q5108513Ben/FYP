@@ -45,7 +45,7 @@ void AbilityEditState::Pause() {
 
 void AbilityEditState::Resume() {
 	(!searchEntered) ? guiRef->get("AbilitySearch")->show() : guiRef->get("AbilitySearchText")->show();
-	guiRef->get("AbilityList")->show();
+	//guiRef->get("AbilityList")->show();
 }
 
 void AbilityEditState::HandleEvent(StateMachine* machine, sf::Event event) {
@@ -94,6 +94,6 @@ void AbilityEditState::HideUI(UI ui) {
 	case AbilityList:
 		guiRef->get("AbilitySearch")->hide();
 		guiRef->get("AbilitySearchText")->hide();
-		guiRef->get("AbilityList")->hide();
+		//guiRef->get("AbilityList")->hide();
 	}
 }
