@@ -57,6 +57,9 @@
     <ClCompile Include="src\Generic\genericEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Generic\genericAbility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\TinyXML2\tinyxml2.h">
@@ -110,9 +113,13 @@
     <ClInclude Include="include\Generic\genericEnemy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Generic\genericAbility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\Character.xml" />
     <Xml Include="data\Enemy.xml" />
+    <Xml Include="data\Ability.xml" />
   </ItemGroup>
 </Project>

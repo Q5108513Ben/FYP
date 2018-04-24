@@ -20,6 +20,21 @@ protected:
 	AbilityEditState() { }
 
 private:
+	enum UI {
+		AbilityList
+	};
+
+	std::vector<sf::Sprite> sprites;
+
+	void ShowSearch(sf::String imageName, sf::String searchName);
+	void UnfocusSearch(sf::String imageName, sf::String searchName);
+
+	void HideUI(UI ui);
+
+	void CheckSearchBar();
+	bool searchEntered{ false };
+
 	static AbilityEditState abilitystate;
 	sf::RenderWindow* windowRef{ nullptr };
+	tgui::Gui* guiRef{ nullptr };
 };
