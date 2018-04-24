@@ -98,9 +98,9 @@ void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui
 	enemySheet->connect("MouseLeft", &UIManager::HideTab, &ui, 1);
 
 	auto abilityList = ButtonCreator::Create("AbilityListHover.png", Position(513, 0));
-	guiPtr->add(abilityList, "AbilityList");
+	guiPtr->add(abilityList, "AbilitySheet");
 	abilityList->connect("Clicked", &UIManager::ActivateTab, &ui, 2, machine);
-	abilityList->connect("MouseEntered", &UIManager::ShowButton, &ui, "AbilityList");
+	abilityList->connect("MouseEntered", &UIManager::ShowButton, &ui, "AbilitySheet");
 	abilityList->connect("MouseLeft", &UIManager::HideTab, &ui, 2);
 
 	guiPtr->add(editBox, "EditBox");
@@ -192,7 +192,7 @@ void UIManager::ActivateTab(unsigned int tabID, StateMachine* machine) {
 			}
 			else if (abilityTabActive) {
 				abilityTabActive = false;
-				guiPtr->get("AbilityList")->setOpacity(0);
+				guiPtr->get("AbilitySheet")->setOpacity(0);
 			}
 			playerTabActive = true;
 			machine->PushState(CharacterEditState::Instance());
@@ -206,7 +206,7 @@ void UIManager::ActivateTab(unsigned int tabID, StateMachine* machine) {
 			}
 			else if (abilityTabActive) {
 				abilityTabActive = false;
-				guiPtr->get("AbilityList")->setOpacity(0);
+				guiPtr->get("AbilitySheet")->setOpacity(0);
 			}
 			enemyTabActive = true;
 			machine->PushState(EnemyEditState::Instance());
@@ -243,7 +243,7 @@ void UIManager::HideTab(unsigned int tabID) {
 		break;
 	case 2:
 		if (!abilityTabActive) {
-			guiPtr->get("AbilityList")->setOpacity(0);
+			guiPtr->get("AbilitySheet")->setOpacity(0);
 		}
 		break;
 	}

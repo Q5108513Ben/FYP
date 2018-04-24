@@ -24,6 +24,7 @@
     <ClCompile Include="src\Managers\dataManager.cpp" />
     <ClCompile Include="external\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Generic\genericAbility.cpp" />
     <ClCompile Include="src\StateMachine\States\abilityEditor.cpp" />
     <ClCompile Include="src\StateMachine\States\characterEditor.cpp" />
     <ClCompile Include="src\StateMachine\States\enemyEditor.cpp" />
@@ -52,8 +53,10 @@
     <ClInclude Include="include\Managers\textureManager.hpp" />
     <ClInclude Include="include\StateMachine\virtualState.hpp" />
     <ClInclude Include="include\Managers\UIManager.hpp" />
+    <ClInclude Include="include\Generic\genericAbility.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="data\Ability.xml" />
     <Xml Include="data\Character.xml">
       <SubType>Designer</SubType>
     </Xml>

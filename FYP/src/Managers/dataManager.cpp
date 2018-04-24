@@ -27,3 +27,16 @@ void DataManager::RetrieveEnemyData(tinyxml2::XMLNode* root) {
 		enemyPtr = enemyPtr->NextSiblingElement();
 	}
 }
+
+void DataManager::RetrieveAbilityData(tinyxml2::XMLNode* root) {
+	tinyxml2::XMLElement* abilityPtr = root->FirstChildElement();
+
+	while (abilityPtr != nullptr) {
+		GenericAbility ability;
+		ability.RetrieveAbilityData(abilityPtr);
+
+		abilitiesMap[ability.GetID()] = ability;
+
+		abilityPtr = abilityPtr->NextSiblingElement();
+	}
+}
