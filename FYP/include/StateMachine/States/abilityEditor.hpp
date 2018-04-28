@@ -21,18 +21,33 @@ protected:
 
 private:
 	enum UI {
-		AbilityList
+		AbilityList,
+		AbilityInfo,
+		GeneralInfo
 	};
 
 	std::vector<sf::Sprite> sprites;
 
 	void ShowSearch(sf::String imageName, sf::String searchName);
 	void UnfocusSearch(sf::String imageName, sf::String searchName);
+	void LoadAbility();
+	void LoadEffect();
+	void OpenTab();
+
+	bool CheckListSelected(sf::String listName);
+
+	void CheckNameChange();
 
 	void HideUI(UI ui);
 
 	void CheckSearchBar();
 	bool searchEntered{ false };
+
+	sf::String nameSaved{ "" };
+	sf::String nameEdited{ "" };
+	bool nameChanged = false;
+
+	bool isTabSelected{ false };
 
 	static AbilityEditState abilitystate;
 	sf::RenderWindow* windowRef{ nullptr };

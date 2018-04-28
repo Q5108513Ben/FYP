@@ -3,13 +3,34 @@
   <Ability1>
     <ID>1</ID>
     <AbilityName>Ability1</AbilityName>
+    <Effects>
+      <Effect id="1" name="Effect1"></Effect>
+      <Effect id="2" name="Effect2"></Effect>
+    </Effects>
+    <Tags>
+      <Tag id="1" name="Tag1"></Tag>
+      <Tag id="2" name="Tag2"></Tag>
+      <Tag id="3" name="Tag3"></Tag>
+    </Tags>
   </Ability1>
   <Ability2>
     <ID>2</ID>
     <AbilityName>Ability2</AbilityName>
+    <Effects>
+      <Effect id="1" name="Effect1"></Effect>
+    </Effects>
+    <Tags>
+      <Tag id="1" name="Tag1"></Tag>
+    </Tags>
   </Ability2>
   <Ability3>
     <ID>3</ID>
     <AbilityName>Ability3</AbilityName>
+    <Effects>
+      
+    </Effects>
+    <Tags>
+      
+    </Tags>
   </Ability3>
 </Root>

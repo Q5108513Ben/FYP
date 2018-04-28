@@ -5,7 +5,7 @@
 
 class GenericCharacter {
 
-	public:
+	private:
 
 		struct Stats {
 			int rawMainStat;
@@ -21,6 +21,8 @@ class GenericCharacter {
 			std::string className;
 			Stats classStats;
 		};
+
+	public:
 
 		const unsigned int& GetID() { return characterID; }
 		const std::string& GetName() { return characterName; }

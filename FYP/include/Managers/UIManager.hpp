@@ -44,6 +44,7 @@ class UIManager {
 
 		tgui::EditBox::Ptr editBox;
 		tgui::ListBox::Ptr listBox;
+		tgui::ComboBox::Ptr comboBox;
 
 		static UIManager ui;
 };

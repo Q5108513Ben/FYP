@@ -1,4 +1,5 @@
 #include "Managers/UIManager.hpp"
+#include "Managers/textureManager.hpp"
 #include "Additional/spriteCreator.hpp"
 #include "includeStates.hpp"
 
@@ -40,7 +41,26 @@ UIManager::UIManager() {
 	listBox->setTextSize(16);
 	listBox->hide();
 	listBox->disable();
+	//DropDown
+	comboBox = tgui::ComboBox::create();
+	comboBox->getRenderer()->setBackgroundColor(sf::Color(0, 0, 0, 0));
+	comboBox->getRenderer()->setTextColor(sf::Color(130, 130, 130, 255));
+	comboBox->getRenderer()->setBorders(tgui::Borders(0));
+	comboBox->getRenderer()->setArrowBackgroundColor(sf::Color(130, 130, 130, 255));
+	comboBox->getRenderer()->setArrowColor(sf::Color(51, 51, 51, 255));
+	comboBox->getRenderer()->setPadding(tgui::Padding(3, 3, 3, 3));
 
+	comboBox->getRenderer()->getListBox()->setBackgroundColor(sf::Color(217, 217, 217, 255));
+	comboBox->getRenderer()->getListBox()->setHoverBackgroundColor(sf::Color(51, 51, 51, 255));
+	comboBox->getRenderer()->getListBox()->setSelectedBackgroundColor(sf::Color(0, 0, 0, 0));
+	comboBox->getRenderer()->getListBox()->setSelectedTextColor(sf::Color(130, 130, 130, 255));
+	comboBox->getRenderer()->getListBox()->setTextColor(sf::Color(130, 130, 130, 255));
+	comboBox->getRenderer()->getListBox()->setTextColorHover(sf::Color(243, 243, 243, 255));
+
+	comboBox->setFont(stndFont);
+	comboBox->setTextSize(16);
+	comboBox->hide();
+	comboBox->disable();
 }
 
 void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui::Gui* gui) {
@@ -105,6 +125,7 @@ void UIManager::LoadBaseUI(sf::RenderWindow* window, StateMachine* machine, tgui
 
 	guiPtr->add(editBox, "EditBox");
 	guiPtr->add(listBox, "ListBox");
+	guiPtr->add(comboBox, "ComboBox");
 }
 
 void UIManager::Render() {
