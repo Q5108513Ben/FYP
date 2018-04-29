@@ -28,10 +28,14 @@ class CharacterEditState : public State {
 
 		std::vector<sf::Sprite> sprites;
 
+		void ShowButton(std::string buttonName);
+		void HideButton(std::string buttonName);
 		void ShowSearch(sf::String imageName, sf::String searchName);
 		void UnfocusSearch(sf::String imageName, sf::String searchName);
 		void LoadCharacter();
 		void LoadClass();
+
+		void SaveChanges();
 		
 		bool CheckListSelected(sf::String listName);
 

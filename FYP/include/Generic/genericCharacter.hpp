@@ -29,6 +29,8 @@ class GenericCharacter {
 		const std::unordered_map<unsigned int, Class>& GetClasses() { return classes; }
 		const Class& GetClass(unsigned int id) { return classes[id]; }
 
+		void SetClassName(unsigned int id, std::string name) { classes[id].className = name; }
+
 		void RetrieveCharacterData(tinyxml2::XMLElement* dataPtr);
 
 	private:

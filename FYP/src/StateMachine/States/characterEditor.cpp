@@ -29,6 +29,12 @@ void CharacterEditState::Initialise(sf::RenderWindow* window, tgui::Gui* gui) {
 	classInfo->hide();
 	guiRef->add(classInfo, "ClassInfo");
 
+	auto saveHover = ButtonCreator::Create("SaveHover.png", Position(723, 582));
+	guiRef->add(saveHover, "SaveHover");
+	saveHover->connect("Clicked", &CharacterEditState::SaveChanges, &characterstate);
+	saveHover->connect("MouseEntered", &CharacterEditState::ShowButton, &characterstate, "SaveHover");
+	saveHover->connect("MouseLeft", &CharacterEditState::HideButton, &characterstate, "SaveHover");
+
 	//------Character-List-Search------\\
 
 	auto search = ButtonCreator::Create("ListSearch.png", Position(816, 333));
@@ -174,6 +180,14 @@ void CharacterEditState::Render(StateMachine* machine) {
 		sprite.scale(3, 3);
 		windowRef->draw(sprite);
 	}
+}
+
+void CharacterEditState::ShowButton(std::string buttonName) {
+	guiRef->get(buttonName)->setOpacity(100);
+}
+
+void CharacterEditState::HideButton(std::string buttonName) {
+	guiRef->get(buttonName)->setOpacity(0);
 }
 
 void CharacterEditState::ShowSearch(sf::String imageName, sf::String searchName) {
@@ -339,6 +353,78 @@ void CharacterEditState::UpdateStatTotal(int index) {
 		(valueInBox < val5) ? IncStatRemaining(val5, valueInBox) : DecStatRemaining(val5, valueInBox);
 		return;
 	}
+}
+
+void CharacterEditState::SaveChanges() {
+	tinyxml2::XMLDocument characterXML;
+	characterXML.LoadFile("data/Character.xml");
+
+	tinyxml2::XMLElement* characterPtr = characterXML.RootElement();
+	characterPtr = characterPtr->FirstChildElement();
+
+	auto selectedCharacter = guiRef->get<tgui::ListBox>("CharacterList")->getSelectedItemId();
+	unsigned int characterID = (unsigned int)*selectedCharacter.getData();
+
+	auto selectedClass = guiRef->get<tgui::ListBox>("ClassList")->getSelectedItemId();
+	unsigned int classID = (unsigned int)*selectedClass.getData();
+
+	bool characterFound{ false };
+
+	tinyxml2::XMLElement* dataPtr;
+
+	while (characterPtr != nullptr) {
+		dataPtr = characterPtr->FirstChildElement("ID");
+		unsigned int text = dataPtr->UnsignedText();
+
+		if (text == characterID) {
+			characterFound = true;
+			break;
+		}
+		else {
+			characterPtr = characterPtr->NextSiblingElement("Character");
+		}
+	}
+
+	bool classFound{ false };
+
+	if (characterFound) {
+		tinyxml2::XMLElement* classPtr = characterPtr->FirstChildElement("Classes");
+		classPtr = classPtr->FirstChildElement();
+
+		while (classPtr != nullptr) {
+			dataPtr = classPtr->FirstChildElement("ID");
+			unsigned int text = dataPtr->UnsignedText();
+
+			if (text == classID) {
+				classFound = true;
+				break;
+			}
+			else {
+				classPtr = classPtr->NextSiblingElement("Class");
+			}
+		}
+
+		if (classFound) {
+			if (classNameChanged) {
+				tinyxml2::XMLElement* nameToChange = classPtr->FirstChildElement("ClassName");
+				std::string nameString = classNameEdited;
+				const char* nameChar = nameString.c_str();
+				nameToChange->SetText(nameChar);
+
+				classNameSaved = classNameEdited;
+				classNameEdited = "";
+				classNameChanged = false;
+				guiRef->get<tgui::ListBox>("ClassList")->changeItemById(classID, classNameSaved);
+			}
+		}
+
+		characterXML.SaveFile("data/Character.xml");
+		DataManager::Instance()->UpdateCharacterData(characterPtr, characterID);
+	}
+
+	
+
+	
 }
 
 void CharacterEditState::CheckSearchBar() {

@@ -8,6 +8,7 @@ class DataManager {
 	public:
 
 		void RetrieveCharacterData(tinyxml2::XMLNode* root);
+		void UpdateCharacterData(tinyxml2::XMLElement* dataPtr, unsigned int charID);
 		const GenericCharacter& GetCharacter(unsigned int ID) { return charactersMap[ID]; }
 		const std::unordered_map<unsigned int, GenericCharacter>& GetAllCharacters() { return charactersMap; }
 

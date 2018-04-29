@@ -6,7 +6,7 @@
         <Classes>
             <Class>
                 <ID>1</ID>
-                <ClassName>Class1</ClassName>
+                <ClassName>C</ClassName>
                 <Stats>
                     <MainStat>2</MainStat>
                     <Constitution>3</Constitution>

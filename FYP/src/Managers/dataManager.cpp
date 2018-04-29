@@ -15,6 +15,10 @@ void DataManager::RetrieveCharacterData(tinyxml2::XMLNode* root) {
 	}
 }
 
+void DataManager::UpdateCharacterData(tinyxml2::XMLElement* dataPtr, unsigned int charID) {
+	charactersMap[charID].RetrieveCharacterData(dataPtr);
+}
+
 void DataManager::RetrieveEnemyData(tinyxml2::XMLNode* root) {
 	tinyxml2::XMLElement* enemyPtr = root->FirstChildElement();
 
